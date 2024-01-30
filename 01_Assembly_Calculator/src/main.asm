@@ -5,7 +5,7 @@
 ; Output the result to the user
 SECTION .data
 
-errormsg db 'Incorrect number of arguments passed', 0x
+argerrormsg db 'Incorrect number of arguments passed', 0x
 
 SECTION .text
 
@@ -15,14 +15,18 @@ _start:
     
     pop ecx ; Store the number of arguments in ecx
     cmp ecx, 4 ; Check if there are 3 arguments (3 arguments + program name)
-    jne error ; If not, jump to error
+    jne argerror ; If not, jump to error
+
+    pop ecx ; Stores the 2nd number in ecx
+    pop ebx ; Stores the operand in ebx
+    pop eax ; Stores the 1st number in eax
 
     call exit ; Otherwise, exit the program
 
-error:
+argerror:
     mov eax, 4 ; System call for write
     mov ebx, 1 ; File descriptor 1 - standard output
-    mov ecx, errormsg ; Address of the string to output
+    mov ecx, argerrormsg ; Address of the string to output
     mov edx, 36 ; Number of characters in message
     int 0x80 ; Call the kernel
 
