@@ -21,3 +21,21 @@ printString: ; Assumes message is stored in ecx
     mov ebx, 1 ; Defines standard output
     int 80x ; Kernel call
     ret ; Returns to main
+
+add:
+    mov eax, [firstOperand] ; Moves the first number into eax
+    mov ebx, [secondOperand] ; Moves the3 second number into ebx
+    add eax, ebx ; Adds the two numbers together
+    ret ; Returns to main
+
+subtract:
+    sub eax, ebx ; Subtracts the two numbers
+    ret ; Returns to main
+
+multiply:
+    imul ebx ; Multiplies the two numbers
+    ret ; Returns to main
+
+divide:
+    idiv ebx ; Divides the two numbers
+    ret ; Returns to main

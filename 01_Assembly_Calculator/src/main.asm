@@ -1,24 +1,90 @@
 %include 'functions.asm'
 
 SECTION .data
-msg1 db "Welcome to the calculator. Please enter an expression in the format <int><operator><int>. Valid operators are +, -, * and /. : ", 0x
+firstOperandMsg db "Welcome to the calculator. Please enter the first operand: ", 0x
+secondOperandMsg db "Please enter the second operand: ", 0x
+operatorMsg db "Please enter the operator (+, -, * or /): ", 0x
+
+addSymbol db 1, 0x
+subSymbol db "-", 0x
+mulSymbol db "*", 0x
+divSymbol db "/", 0x
 
 SECTION .bss
-inputExp resb 255
+firstOperand resd 1
+secondOperand resd 1
+operator resd 1
 
 SECTION .text
 
 global _start
 
 _start:
-    mov eax, msg1 
-    mov ebx, eax ; Stores the memory address of the welcome message in ebx and eax ready to count and print
-    call countChars ; COunts the characters in the welcome message, stores in eax
-    mov ecx, msg1 ; Stores the memory address of the welcome message in ecx ready to print
-    call printString ; Prints the welcome message using the counted characters
-    mov ecx, inputExp ; Moves the location of the inputExp variable into ecx ready to store the user input
-    call getString ; Gets the user's input and stores it in ecx
+    mov eax, firstOperandMsg
+    mov ebx, eax
+    call countChars 
+    mov ecx, firstOperandMsg 
+    call printString 
+    mov ecx, firstOperand 
+    call getString 
+
+    mov eax, secondOperandMsg
+    mov ebx, eax
+    call countChars
+    mov ecx, secondOperandMsg
+    call printString
+    mov ecx, secondOperand
+    call getString
+
+    mov eax, operatorMsg
+    mov ebx, eax
+    call countChars
+    mov ecx, operatorMsg
+    call printString
+    mov ecx, operator
+    call getString
+
+    mov edx, [addSymbol]
+    cmp edx, [operator]
+    je callAdd
+    mov edx, [subSymbol]
+    cmp edx, [operator]
+    je callSubtract
+    mov edx, [mulSymbol]
+    cmp edx, [operator]
+    je callMultiply
+    mov edx, [divSymbol]
+    cmp edx, [operator]
+    je callDivide
+
+    mov eax, 1
+    mov ebx, 4
+    int 80x
+
+printResult:
+    call countChars
+    mov ecx, eax
+    mov eax, 4
+    mov ebx, 1
+    int 80x
+
 
     mov eax, 1
     mov ebx, 0
     int 80x
+
+callAdd:
+    call add
+    jmp printResult
+
+callSubtract:
+    call subtract
+    jmp printResult
+
+callMultiply:
+    call multiply
+    jmp printResult
+
+callDivide:
+    call divide
+    jmp printResult
