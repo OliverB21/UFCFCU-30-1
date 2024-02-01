@@ -1,90 +1,66 @@
 %include 'functions.asm'
+%include 'operators.asm' ; Includes functions from seperate files
 
-SECTION .data
-firstOperandMsg db "Welcome to the calculator. Please enter the first operand: ", 0x
-secondOperandMsg db "Please enter the second operand: ", 0x
-operatorMsg db "Please enter the operator (+, -, * or /): ", 0x
+SECTION .data ; Data section for initialized data
+firstOperandMsgNew db "Welcome to the calculator. Please enter the first operand: ", 0x0
 
-addSymbol db 1, 0x
-subSymbol db "-", 0x
-mulSymbol db "*", 0x
-divSymbol db "/", 0x
+firstOperandMsg db "Please enter the first operand: ", 0x0
+secondOperandMsg db "Please enter the second operand: ", 0x0
+operatorMsg db "Please enter the operator (+, -, * or /): ", 0x0
 
-SECTION .bss
+resultMsg db "The result is: ", 0x0
+remainderMsg db ", with a remainder of ", 0x0
+
+invalidOperatorMsg db "Invalid operator. Please enter a valid operator (+, -, * or /): ", 0x0
+
+newLine db 0xA, 0xD, 0x0 ; New line character
+
+SECTION .bss ; BSS section for uninitialized data
 firstOperand resd 1
 secondOperand resd 1
 operator resd 1
 
-SECTION .text
+SECTION .text ; Code section
 
 global _start
 
 _start:
-    mov eax, firstOperandMsg
-    mov ebx, eax
-    call countChars 
-    mov ecx, firstOperandMsg 
-    call printString 
-    mov ecx, firstOperand 
-    call getString 
+    mov ecx, firstOperandMsgNew ; Move the address of the firstOperandMsgNew to ecx
+    jmp anyTime ; Jump to anyTime
 
-    mov eax, secondOperandMsg
-    mov ebx, eax
-    call countChars
-    mov ecx, secondOperandMsg
+notFirstTime:
+    mov ecx, newLine
     call printString
-    mov ecx, secondOperand
-    call getString
+    mov ecx, firstOperandMsg ; Move the address of the firstOperandMsg to ecx
 
-    mov eax, operatorMsg
-    mov ebx, eax
-    call countChars
-    mov ecx, operatorMsg
-    call printString
-    mov ecx, operator
-    call getString
+anyTime:
+    
+    call printString ; Call the printString function to print the message
+    mov ecx, firstOperand ; Move the address of the firstOperand variable to ecx
+    call getUserInput ; Call the getUserInput function to get the user's first operand
+    call strtoint ; Call the strtoint function to convert the user's input to an integer
+    mov [firstOperand], eax ; Move the integer to the firstOperand variable
 
-    mov edx, [addSymbol]
-    cmp edx, [operator]
-    je callAdd
-    mov edx, [subSymbol]
-    cmp edx, [operator]
-    je callSubtract
-    mov edx, [mulSymbol]
-    cmp edx, [operator]
-    je callMultiply
-    mov edx, [divSymbol]
-    cmp edx, [operator]
-    je callDivide
+    mov ecx, secondOperandMsg ; Move the address of the secondOperandMsg to ecx
+    call printString ; Call the printString function to print the message
+    mov ecx, secondOperand ; Move the address of the secondOperand variable to ecx
+    call getUserInput ; Call the getUserInput function to get the user's second operand
+    call strtoint ; Call the strtoint function to convert the user's input to an integer
+    mov [secondOperand], eax ; Move the integer to the secondOperand variable
 
-    mov eax, 1
-    mov ebx, 4
-    int 80x
+operatorInput:
+    mov ecx, operatorMsg ; Move the address of the operatorMsg to ecx
+    call printString ; Call the printString function to print the message
+    mov ecx, operator ; Move the address of the operator variable to ecx
+    call getUserInput ; Call the getUserInput function to get the user's operator
 
-printResult:
-    call countChars
-    mov ecx, eax
-    mov eax, 4
-    mov ebx, 1
-    int 80x
-
-
-    mov eax, 1
-    mov ebx, 0
-    int 80x
-
-callAdd:
-    call add
-    jmp printResult
-
-callSubtract:
-    call subtract
-    jmp printResult
-
-callMultiply:
-    call multiply
-    jmp printResult
-
-callDivide:
-    call divide
-    jmp printResult
+checkOperator:
+    cmp byte [operator], '+'
+    je add
+    cmp byte [operator], '-'
+    je sub
+    cmp byte [operator], '*'
+    je mul
+    cmp byte [operator], '/'
+    je div
+    call invalidOperator
