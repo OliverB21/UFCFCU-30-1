@@ -55,7 +55,7 @@ printString: ; Prints the string stored in ECX
 ; Name:     getUserInput
 ; In:       ECX = Pointer to memory location to store input
 ; Out:      memory location pointed to by ECX = User input
-; Saved:    EAX, EBX, EDX
+; Saved:    EAX, EBX, ECX, EDX
 ;--------------------------------------------------------
 getUserInput:
     push eax ; Save EAX
@@ -91,13 +91,15 @@ strtoint: ; Converts the string pointed to in ECX to an integer, stores the valu
     mov edx, ecx ; Copy ECX to EDX
     mov eax, 0 ; Zero EAX
 
+    call checkstrcanbeint ; Call checkstrcanbeint to check if the string can be converted to an integer
+
     .convertLoop:
     movzx ecx, byte [edx] ; Copy the current character to ECX
     inc edx ; Increment EDX
     cmp ecx, 0x30 ; Check if the character is less than '0'
     jl .convertEnd ; If so, end the loop
     cmp ecx, 0x39 ; Check if the character is greater than '9'
-    jg .convertEnd ; If so, end the loop
+    jg .convertEnd; If so, end the loop
     sub ecx, 0x30 ; Subtract '0' from the character to get the integer value
     imul eax, 10 ; Multiply EAX by 10
     add eax, ecx ; Add the integer value of the character to EAX
@@ -148,4 +150,61 @@ printInt:
     pop ebx ; Restore EBX
     pop eax ; Restore EAX
     ret ; Return to main
+;--------------------------------------------------------
+; Name:     checkstrcanbeint
+; In:       ECX = Pointer to string
+; Out:      None, error is returned if string cannot be converted to int. Also checks for exit code
+; Saved:    EBX, ECX, EDX
+;--------------------------------------------------------
+checkstrcanbeint: ; Checks if the string pointed to in ECX can be converted to an integer
+    push ebx ; Save EBX
+    push edx ; Save EDX
+    push ecx ; Save ECX
 
+    mov edx, ecx ; Copy ECX to EDX
+
+    .checkLoop:
+    movzx ecx, byte [edx] ; Copy the current character to ECX
+    inc edx ; Increment EDX
+    cmp ecx, 0x21 ; Check if the character is '!'
+    je cleanexit ; If so, exit the program
+    cmp ecx, 0x0 ; Check if the current character is the null terminator
+    je .checkend ; If so, end the loop
+    cmp ecx, 0x0A  ; Check if the character is a new line
+    je .checkend ; If so, end the loop
+    cmp ecx, 0x30 ; Check if the character is less than '0'
+    jl .checkError ; If so, throw an error
+    cmp ecx, 0x39 ; Check if the character is greater than '9'
+    jg .checkError ; If so, throw an error
+    jmp .checkLoop ; Continue the loop
+
+    .checkError:
+    mov ecx, invalidOperandMsg ; Set ECX to the invalid operand message
+    call printString ; Call printString to print the message
+    call clearregisters ; Call clearregisters to clear the registers
+    jmp notFirstTime ; Jump to notFirstTime to continue the loop
+
+    .checkend:
+    pop ecx ; Restore ECX
+    pop edx ; Restore EDX
+    pop ebx ; Restore EBX
+    ret ; Return to main
+
+;--------------------------------------------------------
+; Name:     clearregisters
+; In:       None
+; Out:      None
+; Saved:    None
+;--------------------------------------------------------
+clearregisters: ; Checks if the string pointed to in ECX can be converted to an integer
+
+    xor eax, eax ; Zero EAX
+    xor ebx, ebx ; Zero EBX
+    xor ecx, ecx ; Zero ECX
+    xor edx, edx ; Zero EDX
+
+    mov [firstOperand], eax ; Zero firstOperand
+    mov [secondOperand], eax ; Zero secondOperand
+    mov [operator], eax ; Zero operator
+
+    ret ; Return to main

@@ -11,6 +11,7 @@ add:
 
     mov eax, [firstOperand]
     add eax, [secondOperand]
+    jc likelyoverflow
     mov ecx, resultMsg
     call printString
     call printInt
@@ -34,6 +35,7 @@ sub:
 
     mov eax, [firstOperand]
     sub eax, [secondOperand]
+    jc likelyoverflow
     mov ecx, resultMsg
     call printString
     call printInt
@@ -57,6 +59,7 @@ mul:
 
     mov eax, [firstOperand]
     imul dword [secondOperand]
+    jc likelyoverflow
     mov ecx, resultMsg
     call printString
     call printInt
@@ -80,6 +83,7 @@ div:
 
     mov eax, [firstOperand]
     idiv dword [secondOperand]
+    jc likelyoverflow
     mov ecx, resultMsg
     call printString
     call printInt
@@ -110,4 +114,32 @@ invalidOperator:
     pop ecx
 
     jmp operatorInput
-    
+
+;--------------------------------------------------------
+; Name:     likelyoverflow
+; In:       None
+; Out:      None, prints error message
+; Saved:    ECX
+;--------------------------------------------------------
+likelyoverflow:
+    push ecx
+
+    mov ecx, likelyOverflowMsg
+    call printString
+    mov ecx, newLine
+    call printString
+
+    pop ecx
+
+    ret
+
+;--------------------------------------------------------
+; Name:     cleanexit
+; In:       None
+; Out:      None, exits program
+; Saved:    None
+;--------------------------------------------------------
+cleanexit:
+    mov eax, 1
+    mov ebx, 0
+    int 0x80
