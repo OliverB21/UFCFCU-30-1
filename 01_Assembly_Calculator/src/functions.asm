@@ -208,3 +208,25 @@ clearregisters: ; Checks if the string pointed to in ECX can be converted to an 
     mov [operator], eax ; Zero operator
 
     ret ; Return to main
+
+;--------------------------------------------------------
+; Name:     checkdividebyzero
+; In:       None
+; Out:      None, error is returned if = 0
+; Saved:    EAX
+;--------------------------------------------------------
+checkdividebyzero:
+    push eax ; Save EAX
+
+    mov eax, [secondOperand] ; Copy secondOperand to EAX
+    cmp eax, 0 ; Check if EAX is 0
+    je divideByZero ; If so, jump to divideByZero
+
+    pop eax ; Restore EAX
+    ret ; Return to main
+
+    divideByZero:
+    mov ecx, divisionByZeroMsg ; Set ECX to the divide by zero message
+    call printString ; Call printString to print the message
+    call clearregisters ; Call clearregisters to clear the registers
+    jmp notFirstTime ; Jump to notFirstTime to continue the loop

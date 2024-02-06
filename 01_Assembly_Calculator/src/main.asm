@@ -14,6 +14,7 @@ remainderMsg db ", with a remainder of ", 0x0
 invalidOperandMsg db "Invalid operand. Operation Cancelled", 0x0
 invalidOperatorMsg db "Invalid operator. Please enter a valid operator (+, -, * or /): ", 0x0
 likelyOverflowMsg db "Likely overflow. Proceed with caution", 0x0
+divisionByZeroMsg db "Division by zero. Operation Cancelled", 0x0
 
 newLine db 0xA, 0xD, 0x0 ; New line character
 
@@ -66,6 +67,7 @@ checkOperator:
     cmp byte [operator], '*'
     je mul
     cmp byte [operator], '/'
+    call checkdividebyzero
     je div
     cmp byte [operator], '!'
     je cleanexit
