@@ -21,17 +21,28 @@ class Calculator(tk.Tk):
         print(self.expression)
 
     def calculate(self):
+        if "√" in self.expression:
+            self.expression = self.expression.replace("√", "**0.5")
+        if "^" in self.expression:
+            self.expression = self.expression.replace("^", "**")
+        if "%" in self.expression:
+            self.expression = self.expression.replace("%", "/100*")
         ans = eval(self.expression)
+        if ans == int(ans):
+            ans = int(ans)
         self.display.delete(0, tk.END)
         self.display.insert(tk.END, ans)
         print(self.expression, ans)
         self.expression = str(ans)
 
-
+    def backspace(self):
+        self.expression = self.expression[:-1]
+        self.display.delete(len(self.expression), tk.END)
+        print(self.expression)
 
     def create_widgets(self):
         self.display = tk.Entry(self, font=("Arial", 24))
-        self.display.grid(row=0, column=0, columnspan=4)
+        self.display.grid(row=0, column=0, columnspan=8)
         self.button1 = tk.Button(self, text="1", font=("Arial", 24), command=lambda: self.char_insert(1))
         self.button1.grid(row=1, column=0, padx=0, pady=0)
         self.button2 = tk.Button(self, text="2", font=("Arial", 24), command=lambda: self.char_insert(2))
@@ -60,10 +71,24 @@ class Calculator(tk.Tk):
         self.button_multiply.grid(row=4, column=0, padx=2, pady=2)
         self.button_divide = tk.Button(self, text="/", font=("Arial", 24), command=lambda: self.char_insert("/"))
         self.button_divide.grid(row=4, column=3, padx=2, pady=2)
+        self.button_left_bracket = tk.Button(self, text="(", font=("Arial", 24), command=lambda: self.char_insert("("))
+        self.button_left_bracket.grid(row=5, column=0, padx=2, pady=2)
+        self.button_right_bracket = tk.Button(self, text=")", font=("Arial", 24), command=lambda: self.char_insert(")"))
+        self.button_right_bracket.grid(row=5, column=1, padx=2, pady=2)
+        self.button_square_root = tk.Button(self, text="√", font=("Arial", 24), command=lambda: self.char_insert("√"))
+        self.button_square_root.grid(row=5, column=2, padx=2, pady=2)
+        self.button_power = tk.Button(self, text="^", font=("Arial", 24), command=lambda: self.char_insert("^"))
+        self.button_power.grid(row=5, column=3, padx=2, pady=2)
+        self.button_percent = tk.Button(self, text="%", font=("Arial", 24), command=lambda: self.char_insert("%"))
+        self.button_percent.grid(row=6, column=0, padx=2, pady=2)
+        self.button_dot = tk.Button(self, text=".", font=("Arial", 24), command=lambda: self.char_insert("."))
+        self.button_dot.grid(row=6, column=2, padx=2, pady=2)
         self.button_equals = tk.Button(self, text="=", font=("Arial", 24), command=self.calculate)
         self.button_equals.grid(row=4, column=2, padx=2, pady=2)
         self.button_clear = tk.Button(self, text="C", font=("Arial", 24), command=self.clear)
         self.button_clear.grid(row=1, column=3, padx=2, pady=2)
+        self.button_backspace = tk.Button(self, text="←", font=("Arial", 24), command=self.backspace)
+        self.button_backspace.grid(row=6, column=1, padx=2, pady=2)
 
 
 
