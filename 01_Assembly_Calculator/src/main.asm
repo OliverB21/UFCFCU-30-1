@@ -68,6 +68,7 @@ checkOperator:
     je mul
     cmp byte [operator], '/'
     call checkdividebyzero
+    cmp byte [operator], '/'
     je div
     cmp byte [operator], '!'
     je cleanexit
