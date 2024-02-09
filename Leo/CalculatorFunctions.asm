@@ -15,9 +15,8 @@ atoi:
     mov ecx, 0 ; Initialises with decimal 0
 
 printString:
-    ; ECX - Pointer to string
-    ; EDX - Length of string
-
+    ; ECX - Pointer to string - Initialized outside of functional call 
+    ; EDX - Length of string - Initialized outside of function call
     push eax
     push ebx
     push ecx
@@ -60,18 +59,17 @@ userInput:
 
     ret
 
-inputquery1:
-
-    mov ecx, multmsg
-    mov edx, lmultmsg 
-    call printString
-
+inputquery2:
     mov ecx, addmsg
     mov edx, laddmsg
     call printString
 
     mov ecx, submsg
     mov edx, lsubmsg
+    call printString
+
+    mov ecx, multmsg
+    mov edx, lmultmsg
     call printString
 
     mov ecx, divmsg
@@ -82,5 +80,24 @@ inputquery1:
     mov edx, lopsmsg
     call printString
 
+    mov ecx, opnum
+    call userInput
+
+    ret
+
+inputquery1:
+    mov ecx, num1msg
+    mov edx, lnum1msg
+    call printString
+
     mov ecx, num1
     call userInput
+
+    mov ecx, num2msg
+    mov edx, lnum1msg
+    call printString
+
+    mov ecx, num2
+    call userInput
+
+    ret

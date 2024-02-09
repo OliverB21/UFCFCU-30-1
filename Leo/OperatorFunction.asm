@@ -2,7 +2,7 @@
 ; The ADD function is commented to describe the process
 ; All functions aside from DIV use the same steps aside from line commented
 
-adtion:
+add:
     ; Store number inputs 1 and 2 into registers al and bl (8 bit char)
     mov eax, [num1]
     mov ebx, [num2]
@@ -38,7 +38,7 @@ adtion:
     jmp quit
 
 
-sbtrct:
+sub:
     mov eax, [num1]
     mov ebx, [num2]
 
@@ -64,3 +64,68 @@ sbtrct:
     int 80h
 
     jmp quit
+
+multiply:
+    mov eax, [num1]
+    mov ebx, [num2]
+
+    sub eax, '0'
+    sub ebx, '0'
+
+    mul ebx ; Multiplication takes place here
+
+    add eax, '0'
+
+    mov [result], eax
+
+    mov eax, 4
+    mov ebx, 1
+    mov ecx, resultsmsg
+    mov edx, lresultsmsg
+    int 80h
+
+    mov eax, 4
+    mov ebx, 1
+    mov ecx, result
+    mov edx, 10
+
+    jmp quit
+
+division:
+    mov eax, [num1]
+    mov ebx, [num2]
+
+    sub eax, '0'
+    sub ebx, '0'
+
+    idiv dword ebx ; Division takes place here
+
+    add eax, '0'
+
+    mov [result], eax
+    
+
+    mov eax, 4
+    mov ebx, 1
+    mov ecx, resultsmsg
+    mov edx, lresultsmsg
+    int 80h
+
+    
+
+    mov eax, 4
+    mov ebx, 1
+    mov ecx, result
+    mov edx, 1
+    int 80h
+
+    jmp quit
+
+invalid:
+    push ecx
+
+    mov ecx, invalidopsmsg
+    mov edx, linvalidopsmsg
+    call printString
+
+    jmp inputquery1
