@@ -30,9 +30,9 @@ def index():
 def create():
     return render_template('create.html')
 
-@app.route('/confirm-delete')
-def confirmDelete():
-    return render_template('confirm-delete.html', invoices=loadInvoicesFromDB())
+@app.route('/confirm-delete/<id>')
+def confirmDelete(id):
+    return render_template('confirm-delete.html', id=id)
 
 @app.route('/submit', methods=['POST'])
 def submit():
@@ -40,6 +40,13 @@ def submit():
     with engine.connect() as connection:
         connection.execute(f'INSERT INTO invoices (invoiceNumber, custName, custAddress, invoiceDate, invoiceTotal, invoiceCurrency, invoiceDescription) VALUES ({formResults[0]}, "{formResults[1]}", "{formResults[2]}", "{formResults[3]}", {formResults[4]}, "{formResults[5]}", "{formResults[6]}")')
     return render_template('submit.html')
+
+@app.route('/delete/', methods=['POST'])
+def delete():
+    id = request.form['id']
+    with engine.connect() as connection:
+        connection.execute(f'DELETE FROM invoices WHERE id={id}')
+    return render_template('delete.html')
 
 @app.route('/view')
 def view():
