@@ -5,4 +5,24 @@
 
 {% block body %}
 <h2>Create a new invoice</h2>
+<div id="form">
+<form action="/submit" method="post">
+    <label for="invoiceNumber">Invoice Number:</label><br>
+    <input type="text" id="invoiceNumber" name="invoiceNumber"><br>
+    <label for="custName">Customer Name:</label><br>
+    <input type="text" id="custName" name="custName"><br>
+    <label for="custAddress">Customer Address:</label><br>
+    <input type="text" id="custAddress" name="custAddress"><br>
+    <label for="invoiceDate">Invoice Date:</label><br>
+    <input type="text" id="invoiceDate" name="invoiceDate"><br>
+    <label for="invoiceTotal">Total:</label><br>
+    <input type="text" id="invoiceTotal" name="invoiceTotal"><br>
+    <label for="invoiceCurrency">Currency:</label><br>
+    <input type="text" id="invoiceCurrency" name="invoiceCurrency"><br>
+    <label for="invoiceDescription">Description:</label><br>
+    <input type="text" id="invoiceDescription" name="invoiceDescription"><br><br>
+    <input id="buttons" type="submit" value="Submit">
+
+</form>
+</div>
 {% endblock %}
