@@ -30,6 +30,10 @@ def index():
 def create():
     return render_template('create.html')
 
+@app.route('/confirm-delete')
+def confirmDelete():
+    return render_template('confirm-delete.html', invoices=loadInvoicesFromDB())
+
 @app.route('/submit', methods=['POST'])
 def submit():
     formResults = getFormResults()
