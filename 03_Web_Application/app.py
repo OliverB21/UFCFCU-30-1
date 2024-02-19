@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 from database import engine
 from sqlalchemy import text
+import bleach
 app = Flask(__name__)
 
 def loadInvoicesFromDB():
@@ -13,25 +14,25 @@ def loadInvoicesFromDB():
 
 def getFormResultsA():
     return [
-        request.form['invoiceNumber'],
-        request.form['custName'],
-        request.form['custAddress'],
-        request.form['invoiceDate'],
-        request.form['invoiceTotal'],
-        request.form['invoiceCurrency'],
-        request.form['invoiceDescription']
+        bleach(request.form['invoiceNumber']),
+        bleach(request.form['custName']),
+        bleach(request.form['custAddress']),
+        bleach(request.form['invoiceDate']),
+        bleach(request.form['invoiceTotal']),
+        bleach(request.form['invoiceCurrency']),
+        bleach(request.form['invoiceDescription'])
     ]
 
 def getFormResultsB():
     return [
-        request.form['id'],
-        request.form['invoiceNumber'],
-        request.form['custName'],
-        request.form['custAddress'],
-        request.form['invoiceDate'],
-        request.form['invoiceTotal'],
-        request.form['invoiceCurrency'],
-        request.form['invoiceDescription']
+        bleach(request.form['id']),
+        bleach(request.form['invoiceNumber']),
+        bleach(request.form['custName']),
+        bleach(request.form['custAddress']),
+        bleach(request.form['invoiceDate']),
+        bleach(request.form['invoiceTotal']),
+        bleach(request.form['invoiceCurrency']),
+        bleach(request.form['invoiceDescription'])
     ]
 
 @app.route('/')
