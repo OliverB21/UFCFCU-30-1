@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+<h2>Editing Invoice {{ invoiceNumber }}</h2>
+<div id="form">
+<form action="/edit" method="post">
+    <input type="hidden" name="id" value="{{ id }}">
+    <label for="invoiceNumber">Invoice Number:</label><br>
+    <input type="text" id="invoiceNumber" name="invoiceNumber" value="{{ invoiceNumber}}"><br>
+    <label for="custName">Customer Name:</label><br>
+    <input type="text" id="custName" name="custName" value="{{ custName }}"><br>
+    <label for="custAddress">Customer Address:</label><br>
+    <input type="text" id="custAddress" name="custAddress" value="{{ custAddress }}"><br>
+    <label for="invoiceDate">Invoice Date:</label><br>
+    <input type="text" id="invoiceDate" name="invoiceDate" value="{{ invoiceDate }}"><br>
+    <label for="invoiceTotal">Total:</label><br>
+    <input type="text" id="invoiceTotal" name="invoiceTotal" value="{{ invoiceTotal }}"><br>
+    <label for="invoiceCurrency">Currency:</label><br>
+    <input type="text" id="invoiceCurrency" name="invoiceCurrency" value="{{ invoiceCurrency }}"><br>
+    <label for="invoiceDescription">Description:</label><br>
+    <input type="text" id="invoiceDescription" name="invoiceDescription" value ="{{ invoiceDescription }}"><br><br>
+    <input id="buttons" type="submit" value="Submit">
+
+</form>
+</div>
+{% endblock %}
