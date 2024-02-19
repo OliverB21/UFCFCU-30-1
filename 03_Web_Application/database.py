@@ -1,5 +1,4 @@
 import os
-# import pymysql
 from dotenv import load_dotenv
 from sqlalchemy import create_engine
 
