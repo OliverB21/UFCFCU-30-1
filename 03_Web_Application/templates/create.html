@@ -47,7 +47,7 @@
     <label for="invoiceDate">Invoice Date:</label><br>
     <input type="date" id="invoiceDate" name="invoiceDate" required min="1900-01-01" max="2099-12-31"><br>
     <label for="invoiceTotal">Total (xx.yy format):</label><br>
-    <input type="text" id="invoiceTotal" name="invoiceTotal" required min="0.01" pattern="^\d+\.\d{2}$"><br>
+    <input type="text" id="invoiceTotal" name="invoiceTotal" required min="0.01" pattern="^-?\d+\.\d{2}$"><br>
     <label for="invoiceCurrency">Currency (in currency code format):</label><br>
     <input type="text" id="invoiceCurrency" name="invoiceCurrency" required minlength="3" maxlength="3" pattern="\b[A-Z]{3}\b"><br>
     <label for="invoiceDescription">Description:</label><br>
