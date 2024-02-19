@@ -39,19 +39,19 @@
 <div id="form">
 <form action="/submit" method="post">
     <label for="invoiceNumber">Invoice Number:</label><br>
-    <input type="number" id="invoiceNumber" name="invoiceNumber"><br>
+    <input type="number" id="invoiceNumber" name="invoiceNumber" required min="0"><br>
     <label for="custName">Customer Name:</label><br>
-    <input type="text" id="custName" name="custName"><br>
+    <input type="text" id="custName" name="custName" required maxlength="100"><br>
     <label for="custAddress">Customer Address:</label><br>
-    <input type="text" id="custAddress" name="custAddress"><br>
+    <input type="text" id="custAddress" name="custAddress" required maxlength="250"><br>
     <label for="invoiceDate">Invoice Date:</label><br>
-    <input type="date" id="invoiceDate" name="invoiceDate"><br>
-    <label for="invoiceTotal">Total:</label><br>
-    <input type="text" id="invoiceTotal" name="invoiceTotal"><br>
-    <label for="invoiceCurrency">Currency:</label><br>
-    <input type="text" id="invoiceCurrency" name="invoiceCurrency"><br>
+    <input type="date" id="invoiceDate" name="invoiceDate" required min="1900-01-01" max="2099-12-31"><br>
+    <label for="invoiceTotal">Total (xx.yy format):</label><br>
+    <input type="text" id="invoiceTotal" name="invoiceTotal" required min="0.01" pattern="^\d+\.\d{2}$"><br>
+    <label for="invoiceCurrency">Currency (in currency code format):</label><br>
+    <input type="text" id="invoiceCurrency" name="invoiceCurrency" required minlength="3" maxlength="3" pattern="\b[A-Z]{3}\b"><br>
     <label for="invoiceDescription">Description:</label><br>
-    <input type="text" id="invoiceDescription" name="invoiceDescription"><br><br>
+    <input type="text" id="invoiceDescription" name="invoiceDescription" required maxlength="1500"><br><br>
     <input id="buttons" type="submit" value="Submit">
 
 </form>

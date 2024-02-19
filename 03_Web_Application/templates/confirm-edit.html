@@ -40,19 +40,19 @@
 <form action="/edit" method="post">
     <input type="hidden" name="id" value="{{ id }}">
     <label for="invoiceNumber">Invoice Number:</label><br>
-    <input type="text" id="invoiceNumber" name="invoiceNumber" value="{{ invoiceNumber}}"><br>
+    <input type="text" id="invoiceNumber" name="invoiceNumber" value="{{ invoiceNumber}}" required min="0"><br>
     <label for="custName">Customer Name:</label><br>
-    <input type="text" id="custName" name="custName" value="{{ custName }}"><br>
+    <input type="text" id="custName" name="custName" value="{{ custName }}" required maxlength="100"><br>
     <label for="custAddress">Customer Address:</label><br>
-    <input type="text" id="custAddress" name="custAddress" value="{{ custAddress }}"><br>
+    <input type="text" id="custAddress" name="custAddress" value="{{ custAddress }}" required maxlength="250"><br>
     <label for="invoiceDate">Invoice Date:</label><br>
-    <input type="text" id="invoiceDate" name="invoiceDate" value="{{ invoiceDate }}"><br>
+    <input type="text" id="invoiceDate" name="invoiceDate" value="{{ invoiceDate }}" required min="1900-01-01" max="2099-12-31"><br>
     <label for="invoiceTotal">Total:</label><br>
-    <input type="text" id="invoiceTotal" name="invoiceTotal" value="{{ invoiceTotal }}"><br>
+    <input type="text" id="invoiceTotal" name="invoiceTotal" value="{{ invoiceTotal }}" required min="0.01" pattern="^\d+\.\d{2}$"><br>
     <label for="invoiceCurrency">Currency:</label><br>
-    <input type="text" id="invoiceCurrency" name="invoiceCurrency" value="{{ invoiceCurrency }}"><br>
+    <input type="text" id="invoiceCurrency" name="invoiceCurrency" value="{{ invoiceCurrency }}" required minlength="3" maxlength="3" pattern="\b[A-Z]{3}\b"><br>
     <label for="invoiceDescription">Description:</label><br>
-    <input type="text" id="invoiceDescription" name="invoiceDescription" value ="{{ invoiceDescription }}"><br><br>
+    <input type="text" id="invoiceDescription" name="invoiceDescription" value ="{{ invoiceDescription }}" required maxlength="1500"><br><br>
     <input id="buttons" type="submit" value="Submit">
 
 </form>
