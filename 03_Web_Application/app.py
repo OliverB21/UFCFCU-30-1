@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 def loadInvoicesFromDB():
     with engine.connect() as connection:
-        result = connection.execute('SELECT * FROM invoices')
+        result = connection.execute(text('SELECT * FROM invoices'))
         invoices = []
         for row in result:
             invoices.append(row)
