@@ -1,6 +1,6 @@
 import os
 from dotenv import load_dotenv
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 
 load_dotenv()
 
@@ -15,6 +15,6 @@ engine = create_engine(dbConnectionString,
                            "ssl_ca":"/etc/ssl/cert.pem"}})
 
 with engine.connect() as connection:
-    result = connection.execute('SELECT * FROM invoices')
+    result = connection.execute(text('SELECT * FROM invoices'))
     for row in result:
         print(type(row))
