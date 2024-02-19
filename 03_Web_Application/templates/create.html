@@ -1,6 +1,37 @@
 {% extends 'base.html' %}
 
 {% block head %}
+<style>
+    #form [type="text"]{
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        box-sizing: border-box;
+    
+    }
+    #form [type="number"]{
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        box-sizing: border-box;
+    
+    }
+    #form [type="date"]{
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        box-sizing: border-box;
+    
+    }
+    #form [type="submit"]{
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        box-sizing: border-box;
+        background-color: #4CAF50;
+        color: white;
+    }
+</style>
 {% endblock %}
 
 {% block body %}
@@ -8,13 +39,13 @@
 <div id="form">
 <form action="/submit" method="post">
     <label for="invoiceNumber">Invoice Number:</label><br>
-    <input type="text" id="invoiceNumber" name="invoiceNumber"><br>
+    <input type="number" id="invoiceNumber" name="invoiceNumber"><br>
     <label for="custName">Customer Name:</label><br>
     <input type="text" id="custName" name="custName"><br>
     <label for="custAddress">Customer Address:</label><br>
     <input type="text" id="custAddress" name="custAddress"><br>
     <label for="invoiceDate">Invoice Date:</label><br>
-    <input type="text" id="invoiceDate" name="invoiceDate"><br>
+    <input type="date" id="invoiceDate" name="invoiceDate"><br>
     <label for="invoiceTotal">Total:</label><br>
     <input type="text" id="invoiceTotal" name="invoiceTotal"><br>
     <label for="invoiceCurrency">Currency:</label><br>

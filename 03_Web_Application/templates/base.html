@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Invoice App</title>
     <style>
         h1 {
             font-size: 50px;
@@ -46,17 +47,35 @@
         #buttons a:hover {
         background-color: #e0e0e0;
         }
+
+        #home {
+        display: block;
+        text-align: center;
+        margin: 20px auto;
+        font-size: 20px;
+
+        border-radius: 5px;
+        background-color: #f0f0f0;
+        text-decoration: none;
+        color: #000;
+        font-size: 20px;
+        padding: 10px 20px;
+
+        max-width: 100px;
+        }
+        #home:hover {
+        background-color: #e0e0e0;
+        }
+
     </style>
     {% block head %}{% endblock %}
 </head>
 <body>
     <div id="content">
     <h1>Oliver's Invoice Tracker</h1>
+    <a id="home" href="/">Home</a>
     <img id="banner" src="../static/banner.jpg" alt="Banner Image"/>
     {% block body %}{% endblock %}
     </div>
-    <p style="position: fixed; bottom: 0; width: 100%; text-align: center; font-size: 15px; color: #888;">
-        &copy; 2024 Oliver's Invoice Tracker
-    </p>
 </body>
 </html>

@@ -130,9 +130,6 @@ class Calculator(tk.Tk):
         self.button_history.grid(row=7, column=3, padx=2, pady=2)
 
 
-
-
-
 if __name__ == "__main__":
     app = Calculator()
     app.mainloop()

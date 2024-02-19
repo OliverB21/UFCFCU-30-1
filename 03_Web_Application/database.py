@@ -13,8 +13,3 @@ dbConnectionString = f'mysql+pymysql://{databaseUsername}:{databasePassword}@aws
 engine = create_engine(dbConnectionString,
                        connect_args={'ssl': {
                            "ssl_ca":"/etc/ssl/cert.pem"}})
-
-with engine.connect() as connection:
-    result = connection.execute(text('SELECT * FROM invoices'))
-    for row in result:
-        print(type(row))

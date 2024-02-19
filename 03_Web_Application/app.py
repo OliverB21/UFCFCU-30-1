@@ -12,7 +12,6 @@ def loadInvoicesFromDB():
         return invoices
 
 def getFormResultsA():
-    print(request.form)
     return [
         request.form['invoiceNumber'],
         request.form['custName'],
