@@ -14,25 +14,25 @@ def loadInvoicesFromDB():
 
 def getFormResultsA():
     return [
-        bleach(request.form['invoiceNumber']),
-        bleach(request.form['custName']),
-        bleach(request.form['custAddress']),
-        bleach(request.form['invoiceDate']),
-        bleach(request.form['invoiceTotal']),
-        bleach(request.form['invoiceCurrency']),
-        bleach(request.form['invoiceDescription'])
+        request.form['invoiceNumber'],
+        request.form['custName'],
+        request.form['custAddress'],
+        request.form['invoiceDate'],
+        request.form['invoiceTotal'],
+        request.form['invoiceCurrency'],
+        request.form['invoiceDescription']
     ]
 
 def getFormResultsB():
     return [
-        bleach(request.form['id']),
-        bleach(request.form['invoiceNumber']),
-        bleach(request.form['custName']),
-        bleach(request.form['custAddress']),
-        bleach(request.form['invoiceDate']),
-        bleach(request.form['invoiceTotal']),
-        bleach(request.form['invoiceCurrency']),
-        bleach(request.form['invoiceDescription'])
+        request.form['id'],
+        request.form['invoiceNumber'],
+        request.form['custName'],
+        request.form['custAddress'],
+        request.form['invoiceDate'],
+        request.form['invoiceTotal'],
+        request.form['invoiceCurrency'],
+        request.form['invoiceDescription']
     ]
 
 @app.route('/')
