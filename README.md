@@ -6,7 +6,6 @@ Simple, 4 function aseembly calculator. Build instructions:
 nasm -f elf main.asm -o main.o -g
 ld -m elf_i386 main.o -o main
 ./main
-
 ```
 
 ## 02_GUI_Calculator
